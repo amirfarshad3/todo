@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/icon">
+        <file>resorces/trash.png</file>
+        <file>resorces/edit.png</file>
+        <file>resorces/button.png</file>
+        <file>resorces/iconfavor.png</file>
+        <file>resorces/background.jpg</file>
+        <file>resorces/icon.png</file>
+        <file>resorces/check.png</file>
+    </qresource>
+</RCC>
