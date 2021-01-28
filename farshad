@@ -1,0 +1,83 @@
+
+
+void MainWindow::showoldtask()
+{
+
+    ifstream file("file.txt", ios::in);
+    if (!file)
+        return;
+    task c;
+    string name;
+    try
+    {
+        while (getline(file, name))
+        {
+            c.set_name(QString::fromStdString(name));
+            getline(file, name);
+            c.set_priority(stoi(name));
+            getline(file, name);
+            c.set_favorite(name[0]);
+            getline(file, name);
+            c.set_complate(stoi(name));
+            input.push_back(c);
+        }
+    }
+
+    catch (...)
+    {
+    }
+}
+
+//***********************************************************************
+
+void MainWindow::on_completed_clicked()
+{
+
+    ui->TodoLabe->setText("List Complete");
+
+
+    QFont font;
+    font.setBold(true);
+    font.setPointSize(12);
+    font.setItalic(15);
+
+
+
+    ui->widgetOnTheTop->setStyleSheet("QListWidget{ background:LightSkyBlue;}"); //for background Color
+    ui->widgetOnTheTop->show();
+    ui->widgetOnTheTop->setFont(font);
+    QVBoxLayout *layout = new QVBoxLayout();
+    ui->widgetOnTheTop->clear();
+
+    int i = 1;
+    for (auto it = input.begin(); it < input.end(); it++)
+    {
+        if (it->get_complate())
+        {
+
+            if (it->get_favorite() == '*')
+            {
+
+                ui->widgetOnTheTop->addItem(new QListWidgetItem(QIcon(":/icon/resorces/iconfavor.png"), QString::number(i) + "_" + it->get_name()));
+
+                i++;
+            }
+            else if (it->get_favorite() == ' ')
+            {
+                ui->widgetOnTheTop->addItem("        " + QString::number(i) + "_" + it->get_name());
+                i++;
+            }
+        }
+    }
+
+}
+
+//***********************************************************************
+
+void MainWindow::on_ToDo_clicked()
+{
+
+    ui->TodoLabe->setText("ToDo");
+
+    showtask();
+}
